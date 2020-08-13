@@ -20,7 +20,7 @@ Departure Time : ${flightInfo.estimatedDepartureTime} <br/>
 <br/>
 <br/>
 
-<form action="completeReservation">
+<form action="completeReservation" method="post">
 <pre>
 <h2>Passenger details :</h2><br/>
 First Name : <input type="text" name="passengerFirstName"/><br/>
