@@ -1,6 +1,7 @@
 package com.kaush.flightreservation.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.kaush.flightreservation.dtos.ReservationRequest;
@@ -10,9 +11,14 @@ import com.kaush.flightreservation.entities.Reservation;
 import com.kaush.flightreservation.repos.FlightRepository;
 import com.kaush.flightreservation.repos.PassengerRepository;
 import com.kaush.flightreservation.repos.ReservationRepository;
+import com.kaush.flightreservation.util.EmailUtil;
+import com.kaush.flightreservation.util.PDFGenerator;
 
 @Service
 public class ReservationServiceImpl implements ReservationService {
+
+	@Value("${com.kaush.flightreservation.itinerary.dirpath}")
+	private  String PDF_DOCUMENTS_FILEPATH;
 
 	@Autowired
 	FlightRepository flightRepo;
@@ -22,6 +28,12 @@ public class ReservationServiceImpl implements ReservationService {
 	
 	@Autowired
 	ReservationRepository reservationRepo;
+	
+	@Autowired
+	PDFGenerator pdfGenerator;
+	
+	@Autowired
+	EmailUtil emailUtil;
 	
 	@Override
 	public Reservation bookFlight(ReservationRequest request) {
@@ -43,7 +55,16 @@ public class ReservationServiceImpl implements ReservationService {
 		reservation.setFlight(flight);
 		reservation.setPassenger(savedPassenger);
 		
-		return reservationRepo.save(reservation);
+		Reservation savedReservation = reservationRepo.save(reservation);
+		
+		//generate pdf using data
+		String filePath = PDF_DOCUMENTS_FILEPATH+savedReservation.getId()+".pdf";
+		pdfGenerator.generateItinerary(savedReservation, filePath);
+		
+		// send email
+		emailUtil.sendItinerary(passenger.getEmail(), filePath);
+		
+		return savedReservation;
 	}
 
 }
