@@ -3,6 +3,7 @@ package com.kaush.flightreservation.controllers;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.kaush.flightreservation.entities.User;
+import com.kaush.flightreservation.services.SecurityService;
 import com.kaush.flightreservation.services.UserService;
 
 @Controller
@@ -18,6 +20,12 @@ public class UserController {
 
 	@Autowired
 	UserService userService;
+	
+	@Autowired
+	private BCryptPasswordEncoder encoder;
+	
+	@Autowired
+	private SecurityService securityService;
 	
 	private static final Logger LOGGER = LoggerFactory.getLogger(UserController.class);
 	
@@ -30,7 +38,8 @@ public class UserController {
 	@RequestMapping(value="/registerUser", method=RequestMethod.POST)
 	// public String registerTheUser(@RequestBody User user) {  // meka use karanna ba normal controller eke restcontroller eke nam ok
 	public String registerTheUser(@ModelAttribute("user") User user) {
-		System.out.println("Register user method get called...");
+		LOGGER.info("Register user method get called...");
+		user.setPassword(encoder.encode(user.getPassword()));
 		userService.saveUser(user);
 		return "login/login";
 	}
@@ -50,8 +59,10 @@ public class UserController {
 //		LOGGER.debug("DEBUG");
 //		LOGGER.trace("TRACE"); // this will trace everything goes in our appliation -> most low log level 
 		
-		User resultUser = userService.findByEmail(email);
-		if(resultUser.getPassword().equals(password)) {
+//		User resultUser = userService.findByEmail(email);
+		
+		boolean loginResponse = securityService.login(email, password);
+		if(loginResponse) {
 			return "findFlights";
 		}else {
 			modelMap.addAttribute("msg" , "User Credentials are invalid");
