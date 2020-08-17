@@ -2,6 +2,7 @@ package com.kaush.flightreservation;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.builder.SpringApplicationBuilder;
 
 @SpringBootApplication
 public class FlightreservationApplication {
@@ -10,4 +11,20 @@ public class FlightreservationApplication {
 		SpringApplication.run(FlightreservationApplication.class, args);
 	}
 
+
+
+// to make war file works
+/*
+ * @SpringBootApplication
+	public class FlightreservationApplication extends SpringBootServletInitializer {
+ * 		// then override configure method with 
+ * 
+ * 	@Override
+	protected SpringApplicationBuilder configure(SpringApplicationBuilder builder){
+	return builder.sources(FlightreservationApplication.class);
+	}
+ * 
+ */
+	
+	
 }
