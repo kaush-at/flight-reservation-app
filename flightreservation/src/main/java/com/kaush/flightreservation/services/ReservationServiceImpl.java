@@ -3,6 +3,7 @@ package com.kaush.flightreservation.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.kaush.flightreservation.dtos.ReservationRequest;
 import com.kaush.flightreservation.entities.Flight;
@@ -36,6 +37,7 @@ public class ReservationServiceImpl implements ReservationService {
 	EmailUtil emailUtil;
 	
 	@Override
+	@Transactional
 	public Reservation bookFlight(ReservationRequest request) {
 		// make payment => invoke third party api to do the payment (skkipping that process)
 		
