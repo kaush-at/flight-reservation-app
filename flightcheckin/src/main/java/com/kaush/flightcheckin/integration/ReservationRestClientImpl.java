@@ -1,5 +1,6 @@
 package com.kaush.flightcheckin.integration;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
@@ -9,7 +10,8 @@ import com.kaush.flightcheckin.integration.dtos.ReservationUpdateRequest;
 @Component
 public class ReservationRestClientImpl implements ReservationRestClient {
 
-	private static final String RESERVATIONS_REST_URL = "http://localhost:8080/flightreservation/reservations/";
+	@Value("${com.kaush.flightchecking.integration.reservation.url}")
+	private String RESERVATIONS_REST_URL;
 
 	@Override
 	public Reservation findReservation(Long id) {
