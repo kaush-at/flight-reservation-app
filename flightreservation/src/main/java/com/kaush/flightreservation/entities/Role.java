@@ -31,7 +31,6 @@ public class Role extends AbstractEntity implements GrantedAuthority {
 		this.users = users;
 	}
 
-	// Spring will call internally this method to check what is the role this perticular user has
 	@Override
 	public String getAuthority() {
 		return name;

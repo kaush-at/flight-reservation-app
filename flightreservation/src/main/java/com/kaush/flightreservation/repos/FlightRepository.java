@@ -11,9 +11,7 @@ import com.kaush.flightreservation.entities.Flight;
 
 public interface FlightRepository extends JpaRepository<Flight, Long> {
 
-	// these are concept called named parameter
 	@Query("from Flight where departureCity=:departureCity and arrivalCity=:arrivalCity and dateOfDeparture=:dateOfDeparture")
 	List<Flight> findFlights(@Param("departureCity") String from, @Param("arrivalCity") String to, @Param("dateOfDeparture") Date departureDate);
-	// @Param magin uda tiyena named param walata bind karanawa pass wena data
 
 }

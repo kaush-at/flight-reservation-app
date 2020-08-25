@@ -13,7 +13,7 @@ public class FlightreservationApplication {
 
 
 
-// to make war file works
+// setup to make war file works
 /*
  * @SpringBootApplication
 	public class FlightreservationApplication extends SpringBootServletInitializer {

@@ -39,7 +39,6 @@ public class ReservationServiceImpl implements ReservationService {
 	@Override
 	@Transactional
 	public Reservation bookFlight(ReservationRequest request) {
-		// make payment => invoke third party api to do the payment (skkipping that process)
 		
 		
 		Long flightId = request.getFlightId();
