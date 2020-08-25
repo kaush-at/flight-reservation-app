@@ -18,7 +18,7 @@ public class BmiCalculator {
 				bmiData.setComponentName("bmi");
 				bmiData.setComponentValue(Float.toString(bmi));
 
-				clinicalData.add(bmiData);  // no need to add to the patient because when we add to clinicalData it will auto adding to patient
+				clinicalData.add(bmiData); 
 			}
 
 		}

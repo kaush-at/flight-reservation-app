@@ -20,7 +20,6 @@ public class Patient {
 	private String firstName;
 	private int age;
 	
-	// if you delete patient then all clinical data wiped out
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "patient")
 	private List<ClinicalData> clinicalData;
 
