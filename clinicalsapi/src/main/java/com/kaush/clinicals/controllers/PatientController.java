@@ -39,17 +39,14 @@ public class PatientController {
 		return patientList;
 	}
 
-	// @RequestMapping(value="/patients/{id}", method=RequestMethod.GET)
 	@GetMapping("/patientDetails/{id}")
 	public Patient getPatientDetails(@PathVariable("id") int id) {
 		return patientRepo.findById(id).get();
 	}
 
 	@RequestMapping(value = "/savePatient", method = RequestMethod.POST)
-	public Patient savePatient(@RequestBody Patient patient) { // request eka ena json eka deserialize karala map
-																// karannawa patient object ekata
+	public Patient savePatient(@RequestBody Patient patient) { 
 		return patientRepo.save(patient);
-
 	}
 
 	@RequestMapping(value = "/patients/analyze/{id}", method = RequestMethod.GET)
@@ -69,7 +66,7 @@ public class PatientController {
 				filters.put(eachEntry.getComponentName(), null);
 			}
 			
-			BmiCalculator.calculateBMI(clinicalData, eachEntry);  // right click -> refactor  -> extract method 
+			BmiCalculator.calculateBMI(clinicalData, eachEntry); 
 		}
 		filters.clear();
 		return patient;

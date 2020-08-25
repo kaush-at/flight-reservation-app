@@ -19,8 +19,7 @@ import com.kaush.clinicals.utils.BmiCalculator;
 
 @RestController
 @RequestMapping("/api")
-@CrossOrigin  // we use this because we run front end application and back end application in different different ports
-// when we make ajax calls then there will not be the issues because we are using this annotation with cross site origin support
+@CrossOrigin  
 public class ClinicalDataController {
 
 	private ClinicalDataRepository clinicalDataRepository;
@@ -53,9 +52,8 @@ public class ClinicalDataController {
 			componentName="hw";
 		}
 		List<ClinicalData> specifiedClinicalData = clinicalDataRepository
-				.findByPatientIdAndComponentNameOrderByMeasuredDateTime(patientId, componentName); // use field name of
-																									// object
-
+				.findByPatientIdAndComponentNameOrderByMeasuredDateTime(patientId, componentName); 
+													
 		ArrayList<ClinicalData> duplicateClinicalData = new ArrayList<>(specifiedClinicalData);
 		for (ClinicalData eachEntry : duplicateClinicalData) {
 			BmiCalculator.calculateBMI(specifiedClinicalData, eachEntry);
