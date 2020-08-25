@@ -36,7 +36,6 @@ public class UserController {
 	}
 	
 	@RequestMapping(value="/registerUser", method=RequestMethod.POST)
-	// public String registerTheUser(@RequestBody User user) {  // meka use karanna ba normal controller eke restcontroller eke nam ok
 	public String registerTheUser(@ModelAttribute("user") User user) {
 		LOGGER.info("Register user method get called...");
 		user.setPassword(encoder.encode(user.getPassword()));
@@ -52,14 +51,6 @@ public class UserController {
 	@RequestMapping(value="/login", method=RequestMethod.POST)
 	public String userLogin(@RequestParam("email") String email,@RequestParam("password") String password, ModelMap modelMap) {
 		LOGGER.info("userLogin method get called..with email"+email);
-		
-//		LOGGER.error("ERROR");
-//		LOGGER.warn("WARN");
-//		LOGGER.info("INFO");
-//		LOGGER.debug("DEBUG");
-//		LOGGER.trace("TRACE"); // this will trace everything goes in our appliation -> most low log level 
-		
-//		User resultUser = userService.findByEmail(email);
 		
 		boolean loginResponse = securityService.login(email, password);
 		if(loginResponse) {

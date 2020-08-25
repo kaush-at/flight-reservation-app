@@ -24,7 +24,7 @@ public class ReservationRestController {
 	}
 	
 	@RequestMapping("/reservations")
-	public Reservation updateReservation(@RequestBody ReservationUpdateRequest request) { // ReservationUpdateRequest object should be constructed using content of the request
+	public Reservation updateReservation(@RequestBody ReservationUpdateRequest request) { 
 		Reservation reservation = reservationRepo.findById(request.getId()).get();
 		reservation.setCheckedIn(request.isCheckedIn());
 		reservation.setNumberOfBags(request.getNoOfBags());
