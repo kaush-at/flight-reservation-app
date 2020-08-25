@@ -16,7 +16,7 @@ public class ReservationRestClientImpl implements ReservationRestClient {
 	@Override
 	public Reservation findReservation(Long id) {
 		RestTemplate restTemplate = new RestTemplate();
-		Reservation reservation = restTemplate.getForObject(RESERVATIONS_REST_URL+id, Reservation.class);  // access karanna one url eka and response eka labena object type eka
+		Reservation reservation = restTemplate.getForObject(RESERVATIONS_REST_URL+id, Reservation.class);  
 		return reservation;
 	}
 
@@ -27,5 +27,4 @@ public class ReservationRestClientImpl implements ReservationRestClient {
 		return reservation;
 	}
 
-	// above url exactly same there fore we can create therefore we can extract it to constant
 }
